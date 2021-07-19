@@ -16,7 +16,8 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 Please make sure to update tests as appropriate.
 
 ## TODO
-- Implement Customizable Button Themes
+- Implement customizable Button Themes
+- Toggle for automatically minimizing buttons when target application is minimized
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
