@@ -10,9 +10,16 @@ Can be used for easier accessibility or just convenience.
  
 - [kpreisser](https://github.com/kpreisser) and his MouseClickSimulator(https://github.com/kpreisser/MouseClickSimulator)
 
-## License
+## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-MIT License (MIT)
+Please make sure to update tests as appropriate.
+
+TODO:
+- Implement Customizable Button Themes
+
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
 
 **Have Fun**
 
