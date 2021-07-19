@@ -1,0 +1,18 @@
+﻿<Window x:Name="buttonForm" x:Class="ShortcutOverlay.ButtonPrefab"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ShortcutOverlay"
+        mc:Ignorable="d"
+        Title="ButtonPrefab" HorizontalAlignment="Center" VerticalAlignment="Center" ShowInTaskbar="False" Topmost="True" Background="{x:Null}" AllowsTransparency="True" WindowStyle="None" ResizeMode="CanResizeWithGrip" Focusable="False" IsTabStop="False" d:DesignWidth="435" d:DesignHeight="330">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0*"/>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="prefabButton" Margin="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Focusable="False" MouseDown="prefabButton_MouseDown" MouseUp="prefabButton_MouseUp" MouseMove="prefabButton_MouseMove" IsTabStop="False" Content="awdawd"/>
+
+
+    </Grid>
+</Window>
