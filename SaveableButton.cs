@@ -12,9 +12,7 @@ namespace ShortcutOverlay
     {
         public ButtonPrefab ButtonPrefab { get; set; }
         [DataMember()]
-        public double[] windowsSize = new double[2];
-        [DataMember()]
-        public double[] windowsPos = new double[2];
+        public double[] windowsRect = new double[4];
         [DataMember()]
         public string buttonName;
         [DataMember()]
@@ -25,10 +23,9 @@ namespace ShortcutOverlay
         public string shortcut;
         [DataMember()]
         public string procName;
-        public SaveableButton(double[] newWindowsSize, double[] newWindowsPos, string newButtonName,int newExtendedKey1,int newExtendedKey2,string newShortcut,string newProcessName)
+        public SaveableButton(double[] newWindowRect, string newButtonName,int newExtendedKey1,int newExtendedKey2,string newShortcut,string newProcessName)
         {
-            windowsSize = newWindowsSize;
-            windowsPos = newWindowsPos;
+            windowsRect = newWindowRect;
             buttonName = newButtonName;
             extendedKey1 = newExtendedKey1;
             extendedKey2 = newExtendedKey2;

@@ -124,7 +124,7 @@ namespace ShortcutOverlay
          return this.buttonForm.RestoreBounds;
         }
 
-        public void SetPosAndScale(double[] position,double[] rect)
+        public void SetPosAndScale(double[] rect)
         {
 
             Rect windowRect = new Rect(rect[0],rect[1], rect[2], rect[3]);

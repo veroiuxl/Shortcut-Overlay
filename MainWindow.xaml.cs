@@ -148,7 +148,7 @@ namespace ShortcutOverlay
             double[] windowRect = new[] { buttonRect.X, buttonRect.Y,buttonRect.Width,buttonRect.Height};
             double[] windowPosition = new[] {0.0,0.0};
             
-            return new SaveableButton(windowRect, windowPosition, prefab.buttonName, buttonInfo.selectedIndex, buttonInfo.selectedIndex2, buttonInfo.ShortCut, buttonInfo.ProcName);
+            return new SaveableButton(windowRect, prefab.buttonName, buttonInfo.selectedIndex, buttonInfo.selectedIndex2, buttonInfo.ShortCut, buttonInfo.ProcName);
         }
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
@@ -181,7 +181,7 @@ namespace ShortcutOverlay
             LoadLayoutFile();
         }
 
-        private void LoadLayoutFile()
+        private  void LoadLayoutFile()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Title = "Open Layout";
@@ -204,12 +204,7 @@ namespace ShortcutOverlay
                         continue;
                     }
                     ButtonPrefab newButtonPrefab = AddButton(button.buttonName, button.extendedKey1, button.extendedKey2, button.shortcut, button.procName);
-                    Debug.WriteLine(string.Format("pos (size {0})  \n size (size {1}) ",button.windowsPos.Length,button.windowsSize.Length));
-                    foreach (double VARIABLE in button.windowsSize)
-                    {
-                        Debug.WriteLine(VARIABLE);
-                    }
-                    newButtonPrefab.SetPosAndScale(button.windowsPos,button.windowsSize);
+                    newButtonPrefab.SetPosAndScale(button.windowsRect);
                 }
             }
         }
