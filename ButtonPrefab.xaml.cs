@@ -78,11 +78,11 @@ namespace ShortcutOverlay
            /* MessageBox.Show("add key " + addKey + " | eK  " + extendedKey);*/
             /*
               SetForegroundWindow(notepad);
-                    SendKeys.Send("+{F11}");//shift+F11
-                        for (int i = 0; i < shortCutData.Length; i++)
-                        {
+            SendKeys.Send("+{F11}");//shift+F11
+            for (int i = 0; i < shortCutData.Length; i++)
+            {
 
-                        }*/
+            }*/
         }
         private static Keyboard.VirtualKeyShort GetKeyBySelectedIndex(int index)
         {
@@ -126,13 +126,17 @@ namespace ShortcutOverlay
 
         public void SetPosAndScale(double[] rect)
         {
+            if (rect == null)
+            {
+                MessageBox.Show("Error setting position and size.\nPerhaps config was created by an older version?", "Error!");
+                return;
+            }
 
-            Rect windowRect = new Rect(rect[0],rect[1], rect[2], rect[3]);
+            Rect windowRect = new Rect(rect[0], rect[1], rect[2], rect[3]);
             this.buttonForm.Height = windowRect.Height;
-            this.buttonForm.Width = windowRect.Width; 
+            this.buttonForm.Width = windowRect.Width;
             this.buttonForm.Left = windowRect.X;
             this.buttonForm.Top = windowRect.Y;
-            
         }
        
         public void SetPrefabInstance(string name, int selectedIndex, int selectedIndex2, string shortcut,string wn)
@@ -159,7 +163,7 @@ namespace ShortcutOverlay
             if (extendedKey == Keyboard.VirtualKeyShort.NONCONVERT)
             {
                 MessageBox.Show("First shortcut could not be converted into a key!", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
-                hasSecondExtendedKeyOnly = false; 
+                hasSecondExtendedKeyOnly = false;
             }
 
 
@@ -183,6 +187,7 @@ namespace ShortcutOverlay
                 MessageBox.Show("Could not focus on window!","Error!", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+            prefabButton.ToolTip = "" + extendedKey + "+" + extendedKey2 + "+" + shortCut;
             prefabButton.Click += (sender, args) => { HandleShortcut(); };
 
         }
@@ -369,7 +374,7 @@ namespace ShortcutOverlay
             }
             catch (Exception exe)
             {
-                MessageBox.Show("Could not convert shortcut to key. " + exe.Message,"Error",MessageBoxButton.OK,MessageBoxImage.Error);
+                MessageBox.Show("Could not convert shortcut to key. " + exe.Message,"Error!",MessageBoxButton.OK,MessageBoxImage.Error);
                 return Keyboard.VirtualKeyShort.KEY_S;
             }
         }

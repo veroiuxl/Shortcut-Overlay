@@ -62,7 +62,6 @@ namespace ShortcutOverlay
             }
             try
             {
-                var value = buttonPrefabs.FirstOrDefault(x => x.Key.ButtonPrefab == prefab.ButtonPrefab);
                 prefab.ButtonPrefab.Close();
                 listBoxButtons.Items.RemoveAt(listBoxButtons.Items.IndexOf(listBoxButtons.SelectedItem));
                 buttonPrefabs.Remove(prefab);
@@ -70,11 +69,10 @@ namespace ShortcutOverlay
             }
             catch (Exception exe)
             {
-                MessageBox.Show(exe.Message,"Error");
+                MessageBox.Show(exe.Message,"Error!");
                 return false;
             }
         }
-
         private ButtonInformation FindButtonInformationByName(string buttonName)
         {
             foreach (ButtonInformation bp in buttonPrefabs.Keys)
@@ -101,7 +99,7 @@ namespace ShortcutOverlay
         {
             if (this.selectedButtonName == null)
             {
-                MessageBox.Show("Nothing selected!","Error!");
+                ThrowErrorMessage("Nothing selected!");
                 return;
             }
 
@@ -173,7 +171,7 @@ namespace ShortcutOverlay
 
         private void themeSelection_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            MessageBox.Show("Theme");
+            MessageBox.Show("Not implemented");
         }
 
         private void loadButton_Click(object sender, RoutedEventArgs e)
@@ -193,6 +191,9 @@ namespace ShortcutOverlay
                 {
                     prefab.ButtonPrefab.Close();
                 }
+                listBoxButtons.Items.Clear();
+                buttonPrefabs.Clear();
+                GC.Collect();
                 List<SaveableButton> saveableButtonList = fileLayoutManager.DeserializeXML((FileStream) openFileDialog.OpenFile());
 
                 /*MessageBox.Show("Read " + saveableButton.Count + " buttons");*/
