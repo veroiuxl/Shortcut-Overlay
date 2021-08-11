@@ -38,7 +38,7 @@ namespace ShortcutOverlay
             ButtonInformation buttonInformation = new ButtonInformation();
             ButtonPrefab newButtonInstance = new ButtonPrefab();
             Label label = new Label();
-            label.Content = textBoxButtonName.Text;
+            label.Content = buttonName;
             listBoxButtons.Items.Add(label);
             buttonInformation.ButtonPrefab = newButtonInstance;
             buttonInformation.buttonName = textBoxButtonName.Text;
@@ -145,8 +145,8 @@ namespace ShortcutOverlay
                 return null;
             }
             Rect buttonRect = prefab.GetWindowRect();
-            double[] windowRect = new[] {buttonRect.Top,buttonRect.Bottom,buttonRect.Left,buttonRect.Right };
-            double[] windowPosition = new[] {buttonRect.X,buttonRect.Y};
+            double[] windowRect = new[] { buttonRect.X, buttonRect.Y,buttonRect.Width,buttonRect.Height};
+            double[] windowPosition = new[] {0.0,0.0};
             
             return new SaveableButton(windowRect, windowPosition, prefab.buttonName, buttonInfo.selectedIndex, buttonInfo.selectedIndex2, buttonInfo.ShortCut, buttonInfo.ProcName);
         }
@@ -194,12 +194,22 @@ namespace ShortcutOverlay
                     prefab.ButtonPrefab.Close();
                 }
                 List<SaveableButton> saveableButtonList = fileLayoutManager.DeserializeXML((FileStream) openFileDialog.OpenFile());
+
                 /*MessageBox.Show("Read " + saveableButton.Count + " buttons");*/
                 foreach (SaveableButton button in saveableButtonList)
                 {
+                    if (!Keyboard.ValidApplication(button.procName))
+                    {
+                        ThrowErrorMessage("Application " +  button.procName + " is not running!");
+                        continue;
+                    }
                     ButtonPrefab newButtonPrefab = AddButton(button.buttonName, button.extendedKey1, button.extendedKey2, button.shortcut, button.procName);
-                    Rect rect = new Rect(button.windowsPos[0], button.windowsPos[1], button.windowsRect[2], button.windowsRect[0]);
-                    newButtonPrefab.SetPosAndScale(rect);
+                    Debug.WriteLine(string.Format("pos (size {0})  \n size (size {1}) ",button.windowsPos.Length,button.windowsSize.Length));
+                    foreach (double VARIABLE in button.windowsSize)
+                    {
+                        Debug.WriteLine(VARIABLE);
+                    }
+                    newButtonPrefab.SetPosAndScale(button.windowsPos,button.windowsSize);
                 }
             }
         }

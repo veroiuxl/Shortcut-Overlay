@@ -30,7 +30,7 @@
                 <Label Content="Nothing" Foreground="#FF1762E6" RenderTransformOrigin="0.5,0.5"/>
                 <Label Content="CTRL"/>
                 <Label Content="ALT"/>
-                <Label Content="Shift"/>
+                <Label Content="SHIFT"/>
             </ComboBox>
             <TextBox x:Name="textBoxShortcut" Grid.Column="4" HorizontalAlignment="Left" Height="22" Margin="0,18,0,0" TextWrapping="Wrap" Text="S" VerticalAlignment="Top" Width="183" Grid.Row="2" Padding="0,2,0,0"/>
             <Label Content="+" Grid.Column="2" HorizontalAlignment="Left" Margin="6,15,0,0" Grid.Row="2" VerticalAlignment="Top" Height="25" Width="18" Grid.ColumnSpan="2"/>
@@ -44,7 +44,7 @@
                 <Label Content="Nothing" Foreground="#FF1762E6" RenderTransformOrigin="0.5,0.5"/>
                 <Label Content="CTRL"/>
                 <Label Content="ALT"/>
-                <Label Content="Shift"/>
+                <Label Content="SHIFT"/>
             </ComboBox>
             <Label Content="+" Grid.Column="1" HorizontalAlignment="Left" Margin="94,14,0,0" Grid.Row="2" VerticalAlignment="Top" Height="25" Width="18"/>
         </Grid>

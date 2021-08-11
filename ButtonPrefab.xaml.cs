@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -64,7 +65,8 @@ namespace ShortcutOverlay
             }
             else
             {
-                if (!hasSecondExtendedKeyOnly)
+                Debug.WriteLine("addKey " + addKey + " exK " + extendedKey + " exK2 " + extendedKey2);
+                if (hasSecondExtendedKeyOnly)
                 {
                     PressOrReleaseKeyForShortcut(addKey, extendedKey,Keyboard.VirtualKeyShort.NONCONVERT);
                 }
@@ -92,12 +94,15 @@ namespace ShortcutOverlay
                     keyIn = (short)Keyboard.VirtualKeyShort.PACKET;
                     break;
                 case 1:
+                    // CTRL
                     keyIn = (short)Keyboard.VirtualKeyShort.CONTROL;
                     break;
                 case 2:
-                    keyIn = (short)18;
+                    // ALT
+                    keyIn = (short)0x12;
                     break;
                 case 3:
+                    // SHIFT
                     keyIn =  (short)Keyboard.VirtualKeyShort.SHIFT;
                     break;
                 default:
@@ -119,12 +124,14 @@ namespace ShortcutOverlay
          return this.buttonForm.RestoreBounds;
         }
 
-        public void SetPosAndScale(Rect rect)
+        public void SetPosAndScale(double[] position,double[] rect)
         {
-            this.buttonForm.Height = rect.Left;
-            this.buttonForm.Width = rect.Top;
-            this.buttonForm.Left = rect.X;
-            this.buttonForm.Top = rect.Y;
+
+            Rect windowRect = new Rect(rect[0],rect[1], rect[2], rect[3]);
+            this.buttonForm.Height = windowRect.Height;
+            this.buttonForm.Width = windowRect.Width; 
+            this.buttonForm.Left = windowRect.X;
+            this.buttonForm.Top = windowRect.Y;
             
         }
        
@@ -152,7 +159,9 @@ namespace ShortcutOverlay
             if (extendedKey == Keyboard.VirtualKeyShort.NONCONVERT)
             {
                 MessageBox.Show("First shortcut could not be converted into a key!", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+                hasSecondExtendedKeyOnly = false; 
             }
+
 
             if (extendedKey2 == Keyboard.VirtualKeyShort.NONCONVERT)
             {
@@ -262,6 +271,7 @@ namespace ShortcutOverlay
             addKeyInput2.type = (int)InputType.INPUT_KEYBOARD;
             addKeyInput2.U.ki = ki2;
 
+
             var addKeyInput3 = new Keyboard.INPUT();
             if (extendedKey2 != Keyboard.VirtualKeyShort.NONCONVERT)
             {
@@ -272,7 +282,7 @@ namespace ShortcutOverlay
                 };
                 ki3.dwFlags = 0;
 
-                addKeyInput3.type = (int) InputType.INPUT_KEYBOARD;
+                addKeyInput3.type = (int)InputType.INPUT_KEYBOARD;
                 addKeyInput3.U.ki = ki3;
             }
 
@@ -313,16 +323,14 @@ namespace ShortcutOverlay
             }
 
             // Send both at the same time
-            if (extendedKey != Keyboard.VirtualKeyShort.NONCONVERT)
+            if (extendedKey2 != Keyboard.VirtualKeyShort.NONCONVERT)
             {
-                // Holy shit this is so terribly coded
-                Keyboard.INPUT[] inputs = {input, addKeyInput2, inputRelease, inputaddKeyRelease, addKeyInput3, addKeyCode2Release };
+                Keyboard.INPUT[] inputs = { input, addKeyInput2, addKeyInput3, inputRelease, inputaddKeyRelease, addKeyCode2Release};
                 if (Keyboard.SendInput((uint)inputs.Length, inputs, Keyboard.INPUT.Size) == 0)
                     throw new Win32Exception();
             }
             else
             {
-
                 Keyboard.INPUT[] inputs = { input, addKeyInput2, inputRelease, inputaddKeyRelease };
                 if (Keyboard.SendInput((uint)inputs.Length, inputs, Keyboard.INPUT.Size) == 0)
                     throw new Win32Exception();
@@ -369,7 +377,7 @@ namespace ShortcutOverlay
         private Keyboard.VirtualKeyShort ConvertSpecialKeysToKeyCode(string specialKey)
         {
             
-            switch(specialKey)
+            switch(specialKey.Trim().ToUpper())
             {
                 case "F1":
                     return Keyboard.VirtualKeyShort.F1;
@@ -395,6 +403,22 @@ namespace ShortcutOverlay
                     return Keyboard.VirtualKeyShort.F11;
                 case "F12":
                     return Keyboard.VirtualKeyShort.F12;
+                case "DELETE":
+                    return Keyboard.VirtualKeyShort.DELETE;
+                case "PRINT":
+                    return Keyboard.VirtualKeyShort.PRINT;
+                case "TAB":
+                    return Keyboard.VirtualKeyShort.TAB;
+                case "UP":
+                    return Keyboard.VirtualKeyShort.UP;
+                case "DOWN":
+                    return Keyboard.VirtualKeyShort.DOWN;
+                case "RIGHT":
+                    return Keyboard.VirtualKeyShort.RIGHT;
+                case "LEFT":
+                    return Keyboard.VirtualKeyShort.LEFT;
+                case "BACKSPACE":
+                    return Keyboard.VirtualKeyShort.BACK;
                 default:
                 return Keyboard.VirtualKeyShort.NONCONVERT;
             }

@@ -10,9 +10,7 @@ namespace ShortcutOverlay
 {
     public class Keyboard
     {
-        // https://stackoverflow.com/questions/5878963/getting-active-window-coordinates-and-height-width-in-c-sharp/5879107
         // https://github.com/kpreisser/MouseClickSimulator/blob/master/TTMouseclickSimulator/Core/Environment/AbstractWindowsEnvironment.cs
-        // https://stackoverflow.com/questions/25405184/serialize-dictionary-into-json-file
         public static bool ValidApplication(string pn)
         {
             Process[] proc = Process.GetProcessesByName(pn);
