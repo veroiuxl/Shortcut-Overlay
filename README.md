@@ -22,7 +22,6 @@ Please make sure to update tests as appropriate.
 - Implement customizable Button Themes
 - Toggle for automatically minimizing buttons when target application is minimized
 - Button edit function
-- 
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
